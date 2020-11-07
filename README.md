@@ -3,6 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Project made in an online course. Will document it later.
 ## TO-DOs:
 * Delete unused files.
+* Rename things
 
 ## Available Scripts
 
