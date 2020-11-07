@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
+import logo from './logo.svg';
 import { CardList } from './components/card-list/card-list.component';
 import { SearchBox } from './components/search-box/search-box.component.jsx';
 import './App.css';
-import monsters from './data/monsters.json'
-
-
-// const myRequest = new Request("https://jsonplaceholder.typicode.com/users");
-// var data = require('./monsters.json')
 
 class App extends Component {
-  constructor() {
+  constructor(){
     super();
 
     this.state = {
@@ -17,22 +13,23 @@ class App extends Component {
       searchField: ''
     }
 
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    // fetch(myRequest)
-    //   .then(response => response.json())
-    //   .then(users => this.setState({ monsters: users }))
-    this.setState({ monsters })
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(users => this.setState({ monsters: users }))
   }
 
-  handleChange = e => {
+  handleChange(e) {
     this.setState({ searchField: e.target.value })
   }
 
-  randomize = () => {
-    this.setState({ searchField: `${monsters[Math.floor(Math.random() * monsters.length)].name}` })
-  }
+  // Same as:
+  // handleChange = e => {
+  //   this.setState({ searchField: e.target.value })
+  // }
 
   render() {
     const { monsters, searchField } = this.state;
@@ -41,12 +38,9 @@ class App extends Component {
     });
     return (
       <div className='App'>
-        <h1>Movies</h1>
-        <SearchBox placeholder='search-movies' handleChange={this.handleChange} />
-        <p>
-          <button onClick={this.randomize}> Randomizer! </button>
-        </p>
-        <CardList monsters={filteredMonsters} />
+      <h1>Monster Rolodex</h1>
+      <SearchBox placeholder= 'search-monster' handleChange={this.handleChange} />
+      <CardList monsters={filteredMonsters}/>
       </div>
     );
   }
